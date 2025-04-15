@@ -1,4 +1,4 @@
-# Code From https://dev.to/staubracing/setting-up-github-actions-for-aws-s3-integration-2hg7
+# Code From "StaubRacing" (2024) https://dev.to/staubracing/setting-up-github-actions-for-aws-s3-integration-2hg7
 name: Sync to S3
 on:
   push:
