@@ -13,20 +13,6 @@ def browser():
 
 
 @fixture
-def local_website(browser):
-    browser.get(os.path.realpath("index.html"))
-    yield browser
-    browser.close()
-
-
-@fixture
-def live_website(browser):
-    browser.get(WEB_URL)
-    yield browser
-    browser.close()
-
-
-@fixture
 def soup():
     html_file = open("index.html", "r", encoding="utf-8")
     index = html_file.read()
