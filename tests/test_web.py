@@ -2,6 +2,7 @@ from t_consts import WEB_URL
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from pytest import fixture
+import os
 
 
 @fixture
@@ -12,24 +13,43 @@ def browser():
 
 
 @fixture
+def local_website(browser):
+    browser.get(os.path.realpath("index.html"))
+    yield browser
+    browser.close()
+
+
+@fixture
+def live_website(browser):
+    browser.get(WEB_URL)
+    yield browser
+    browser.close()
+
+
+@fixture
 def soup():
     html_file = open("index.html", "r", encoding="utf-8")
     index = html_file.read()
-    soup = BeautifulSoup(index, "lxml")
+    s = BeautifulSoup(index, "lxml")
 
-    yield soup
+    yield s
 
 
-def test_app_loads(browser, soup):
+def test_app_live(browser, soup):
+    """LIVE: Tests that the website is currently live"""
     # Get intended title of webpage
     web_title = soup.title.string
 
     # If the title of the tested webpage is the same, we can assume the website is live
     browser.get(WEB_URL)
     assert web_title in browser.title
+    browser.close()
 
 
-def test_random_button(browser, soup):
+def test_random_button(browser):
+    """LOCAL: Tests that the random generator
+    button works and gives a valid result"""
+    browser.get(os.path.realpath("index.html"))
 
     text_box = browser.find_element(value="randomName")
     initial_text = text_box.text
@@ -39,4 +59,14 @@ def test_random_button(browser, soup):
 
     new_text = text_box.text
 
-    assert initial_text != new_text
+    # Test the new world is actually valid
+    # and not just a string of random characters
+    word_split = new_text.split()
+    adjectives = ["Secret", "Mighty", "Brave", "Swift", "Clever"]
+    animals = ["Squirrel", "Tiger", "Eagle", "Fox", "Bear"]
+
+    assert (
+        initial_text != new_text
+        and word_split[0] in adjectives
+        and word_split[1] in animals
+    )
