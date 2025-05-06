@@ -48,7 +48,7 @@ def test_random_button(browser):
     # Test the new world is actually valid
     # and not just a string of random characters
     word_split = new_text.split()
-    adjectives = ["Secret", "Mighty", "Brave", "Swift", "Clever"]
+    adjectives = ["Secret", "Mighty", "Brave", "Swift", "Clever", "Clover"]
     animals = ["Squirrel", "Tiger", "Eagle", "Fox", "Bear"]
 
     assert (
