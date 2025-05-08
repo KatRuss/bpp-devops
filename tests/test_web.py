@@ -49,7 +49,7 @@ def test_random_button(browser):
     # and not just a string of random characters
     word_split = new_text.split()
     adjectives = ["Secret", "Mighty", "Brave", "Swift", "Clever", "Clover"]
-    animals = ["Squirrel", "Tiger", "Eagle", "Fox", "Bear"]
+    animals = ["Squirrel", "Tiger", "Eagle", "Fox", "Bear", "Zebra"]
 
     assert (
         initial_text != new_text
